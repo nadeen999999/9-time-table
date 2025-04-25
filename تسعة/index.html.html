@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>استراتيجية تعلم جدول التسعة بالأصابع</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fef6e4;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      direction: rtl;
+    }
+    header img {
+      width: 250px;
+      margin: 20px auto 10px;
+      display: block;
+    }
+    h1 {
+      color: #ff6b6b;
+      margin-bottom: 10px;
+    }
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .icons img {
+      width: 40px;
+      cursor: pointer;
+    }
+    .content {
+      margin: 20px auto;
+      max-width: 600px;
+    }
+    select, input[type="number"] {
+      font-size: 18px;
+      padding: 10px;
+      margin: 10px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+    }
+    button {
+      background-color: #ffb703;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    video {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+      display: none;
+    }
+    .message {
+      font-size: 20px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .emoji {
+      font-size: 40px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="header_kids.png" alt="صورة العنوان">
+    <h1>استراتيجية تعلم جدول التسعة بالأصابع</h1>
+  </header>
+  <div class="icons">
+    <img src="icon_audio.png" onclick="document.getElementById('voice').play();" title="تعليمات">
+    <img src="icon_book.png" title="المحتوى">
+  </div><audio id="voice" src="nadine_voice.mp3"></audio> <audio id="clap" src="ahsant.mp3"></audio>
+
+  <div class="content">
+    <label for="number">اختر رقم من 1 إلى 10:</label>
+    <select id="number">
+      <option value="">-- اختر --</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <br>
+    <video id="video" controls></video>
+    <br>
+    <input type="number" id="answer" placeholder="اكتب الناتج هنا">
+    <br>
+    <button onclick="checkAnswer()">تحقق</button>
+    <div class="message" id="message"></div>
+    <div class="emoji" id="emoji"></div>
+  </div>  <script>
+    const video = document.getElementById('video');
+    const message = document.getElementById('message');
+    const emoji = document.getElementById('emoji');
+    const clapSound = document.getElementById('clap');
+
+    document.getElementById('number').addEventListener('change', function() {
+      const value = this.value;
+      if (value) {
+        video.src = `9x${value}.mp4`;
+        video.style.display = 'block';
+        message.textContent = '';
+        emoji.textContent = '';
+      } else {
+        video.style.display = 'none';
+      }
+    });
+
+    function checkAnswer() {
+      const number = document.getElementById('number').value;
+      const answer = document.getElementById('answer').value;
+      if (!number || !answer) {
+        message.textContent = 'يرجى اختيار رقم وكتابة الناتج.';
+        emoji.textContent = '';
+        return;
+      }
+      const correct = 9 * Number(number);
+      if (Number(answer) === correct) {
+        message.textContent = 'إجابة صحيحة! أحسنت';
+        emoji.textContent = '⭐';
+        clapSound.play();
+      } else {
+        message.textContent = 'إجابة خاطئة، حاول مرة أخرى';
+        emoji.textContent = '';
+      }
+    }
+  </script></body>
+</html>
